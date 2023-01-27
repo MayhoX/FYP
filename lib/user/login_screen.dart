@@ -1,7 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fyp/api_connection/api_connection.dart';
 import 'package:fyp/user/Forger_Password_screen.dart';
+import 'package:fyp/user/fragments/dashboard_of_fragments.dart';
+import 'package:fyp/user/model/user.dart';
 import 'package:fyp/user/register_screen.dart';
+import 'package:fyp/user/userPreferences/user_preferences.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,6 +22,45 @@ class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var isObsecure = true.obs;
+
+  loginUserNow() async
+  {
+    try
+    {
+      var res = await http.post(
+        Uri.parse(API.login),
+        body: {
+          'User_Email': emailController.text.trim(),
+          'User_Password': passwordController.text.trim(),
+        },
+      );
+      if(res.statusCode == 200)
+      {
+        var resBodyOfLogin = jsonDecode(res.body);
+        if (resBodyOfLogin['success'] == true)
+        {
+          Fluttertoast.showToast(msg: "Login Successfully");
+
+          User userInfo = User.fromJson(resBodyOfLogin['userData']);
+
+          await RememberUserPrefs.SaveUserInfo(userInfo);
+
+          Future.delayed(Duration(milliseconds: 1000),()
+          {
+            Get.to(DashboardOfFragments());
+          });
+
+        }else{
+          Fluttertoast.showToast(msg: "Incorrect email & password!");
+        }
+      }
+
+    }catch(e){
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +235,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(30),
                                     child: InkWell(
                                       onTap: (){
-
+                                        if (formKey.currentState!.validate())
+                                        {
+                                          loginUserNow();
+                                        }
                                       },
                                       borderRadius: BorderRadius.circular(30),
                                       child: const Padding(
