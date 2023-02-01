@@ -31,7 +31,7 @@ class _ForgerPasswordScreenState extends State<ForgerPasswordScreen> {
                       "images/CardAppLogo.png",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 18,
                   ),
                   Padding(
@@ -69,7 +69,7 @@ class _ForgerPasswordScreenState extends State<ForgerPasswordScreen> {
                                     validator: (val) =>
                                     val == "" ? "Please input email" : null,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.email,
                                         color: Colors.black,
                                       ),
@@ -94,7 +94,7 @@ class _ForgerPasswordScreenState extends State<ForgerPasswordScreen> {
                                           borderSide: const BorderSide(
                                             color: Colors.white60,
                                           )),
-                                      contentPadding: EdgeInsets.symmetric(
+                                      contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 14,
                                         vertical: 6,
                                       ),

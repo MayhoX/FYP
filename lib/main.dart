@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:fyp/user/fragments/dashboard_of_fragments.dart';
 import 'package:fyp/user/login_screen.dart';
+import 'package:fyp/user/userPreferences/user_preferences.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -20,9 +22,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: FutureBuilder(
+        future: RememberUserPrefs.readUserInfo(),
         builder: (context, dataSnapShot)
         {
-          return LoginScreen();
+          if (dataSnapShot.data == null)
+          {
+            return LoginScreen();
+          }
+          else
+          {
+            return DashboardOfFragments();
+          }
         },
       ),
     );

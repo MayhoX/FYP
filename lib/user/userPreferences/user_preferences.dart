@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:fyp/user/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +28,10 @@ class RememberUserPrefs
 
   }
 
-
+  static Future<void> removeUserInfo() async
+  {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.remove("currentUser");
+  }
 
 }

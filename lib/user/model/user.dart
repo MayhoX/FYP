@@ -10,7 +10,7 @@ class User
         this.User_Name,
         this.User_Email,
         this.User_Password,
-  );
+    );
 
     factory User.fromJson(Map<String, dynamic> json) => User(
       int.parse(json['User_ID']),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fyp/admin/Admin_Main_screen.dart';
 import 'package:fyp/api_connection/api_connection.dart';
 import 'package:fyp/user/Forger_Password_screen.dart';
 import 'package:fyp/user/fragments/dashboard_of_fragments.dart';
@@ -36,8 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       if(res.statusCode == 200)
       {
+
         var resBodyOfLogin = jsonDecode(res.body);
-        if (resBodyOfLogin['success'] == true)
+
+        if (resBodyOfLogin['success'] == "User" || resBodyOfLogin['success'] == "Admin")
         {
           Fluttertoast.showToast(msg: "Login Successfully");
 
@@ -45,14 +48,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
           await RememberUserPrefs.SaveUserInfo(userInfo);
 
-          Future.delayed(Duration(milliseconds: 1000),()
+          if (resBodyOfLogin['success'] == "User")
           {
-            Get.to(DashboardOfFragments());
-          });
+            Future.delayed(const Duration(milliseconds: 1000), () {
+              Get.to(DashboardOfFragments());
+            });
+          }else if(resBodyOfLogin['success'] == "Admin"){
+            Future.delayed(const Duration(milliseconds: 1000), () {
+              Get.to(AdminMainScreen());
+            });
+          }
 
         }else{
           Fluttertoast.showToast(msg: "Incorrect email & password!");
         }
+      }
+      else
+      {
+        Fluttertoast.showToast(msg: "200");
       }
 
     }catch(e){
@@ -82,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "images/CardAppLogo.png",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 18,
                   ),
                   Padding(
@@ -118,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     validator: (val) =>
                                         val == "" ? "Please input email" : null,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.email,
                                         color: Colors.black,
                                       ),
@@ -143,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           borderSide: const BorderSide(
                                             color: Colors.white60,
                                           )),
-                                      contentPadding: EdgeInsets.symmetric(
+                                      contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 14,
                                         vertical: 6,
                                       ),
@@ -164,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         validator: (val) =>
                                         val == "" ? "Please input password" : null,
                                         decoration: InputDecoration(
-                                          prefixIcon: Icon(
+                                          prefixIcon: const Icon(
                                             Icons.vpn_key_sharp,
                                             color: Colors.black,
                                           ),
@@ -201,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               color: Colors.white60,
                                             ),
                                           ),
-                                          contentPadding: EdgeInsets.symmetric(
+                                          contentPadding: const EdgeInsets.symmetric(
                                             horizontal: 14,
                                             vertical: 6,
                                           ),
@@ -255,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                  )
+                                  ),
 
                                 ],
                               ),

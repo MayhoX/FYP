@@ -9,7 +9,7 @@ class FavoritesFragmentsScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text(
-            'Favorites Fragments Screen'
+            'Favorites  Screen'
         ),
       ),
     );

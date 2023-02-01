@@ -12,7 +12,7 @@ class DashboardOfFragments extends StatelessWidget {
 
   CurrentUser _rememberCurrentUser = Get.put(CurrentUser());
 
-  List<Widget> _fragmentScreens =
+  final List<Widget> _fragmentScreens =
   [
     HomeFragmentsScreen(),
     FavoritesFragmentsScreen(),
@@ -20,7 +20,7 @@ class DashboardOfFragments extends StatelessWidget {
     ProfileFragmentsScreen(),
   ];
 
-  List _navigationBar =
+  final List _navigationBar =
   [
     {
       'active_icon': Icons.home,
@@ -44,7 +44,7 @@ class DashboardOfFragments extends StatelessWidget {
     },
   ];
 
-  RxInt _indexNumber = 0.obs;
+  final RxInt _indexNumber = 0.obs;
 
   @override
   Widget build(BuildContext context) {

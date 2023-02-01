@@ -42,6 +42,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           RegisterUserRecord();
         }
       }
+      else
+      {
+        Fluttertoast.showToast(msg: "200");
+      }
 
     }catch(e){
       print(e.toString());
@@ -108,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "images/CardAppLogo.png",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 18,
                   ),
                   Padding(
@@ -145,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     validator: (val) =>
                                     val == "" ? "Please input name" : null,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.person,
                                         color: Colors.black,
                                       ),
@@ -170,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           borderSide: const BorderSide(
                                             color: Colors.white60,
                                           )),
-                                      contentPadding: EdgeInsets.symmetric(
+                                      contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 14,
                                         vertical: 6,
                                       ),
@@ -189,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     validator: (val) =>
                                     val == "" ? "Please input email" : null,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.email,
                                         color: Colors.black,
                                       ),
@@ -214,7 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           borderSide: const BorderSide(
                                             color: Colors.white60,
                                           )),
-                                      contentPadding: EdgeInsets.symmetric(
+                                      contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 14,
                                         vertical: 6,
                                       ),
@@ -235,7 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       validator: (val) =>
                                       val == "" ? "Please input password" : null,
                                       decoration: InputDecoration(
-                                        prefixIcon: Icon(
+                                        prefixIcon:const Icon(
                                           Icons.vpn_key_sharp,
                                           color: Colors.black,
                                         ),
@@ -272,7 +276,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             color: Colors.white60,
                                           ),
                                         ),
-                                        contentPadding: EdgeInsets.symmetric(
+                                        contentPadding: const EdgeInsets.symmetric(
                                           horizontal: 14,
                                           vertical: 6,
                                         ),
