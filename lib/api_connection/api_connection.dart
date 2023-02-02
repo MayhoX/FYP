@@ -1,6 +1,6 @@
 class API {
   //ipconfig to change ip
-  static const hostConnect = 'http://172.20.10.5/api_fyp';
+  static const hostConnect = 'http://192.168.50.171/api_fyp';
 
   static const hostConnectUser = '$hostConnect/user';
   static const hostConnectCard = '$hostConnect/card';
