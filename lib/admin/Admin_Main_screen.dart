@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/admin/Admin_Upload_Card.dart';
@@ -10,9 +8,7 @@ import '../user/login_screen.dart';
 import '../user/userPreferences/user_preferences.dart';
 
 class AdminMainScreen extends StatelessWidget {
-
-  LogoutUser() async
-  {
+  LogoutUser() async {
     var result = await Get.dialog(
       AlertDialog(
         backgroundColor: Colors.white,
@@ -28,7 +24,7 @@ class AdminMainScreen extends StatelessWidget {
         ),
         actions: [
           TextButton(
-              onPressed: (){
+              onPressed: () {
                 Get.back();
               },
               child: const Text(
@@ -36,10 +32,9 @@ class AdminMainScreen extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                 ),
-              )
-          ),
+              )),
           TextButton(
-              onPressed: (){
+              onPressed: () {
                 Get.back(result: "logout");
               },
               child: const Text(
@@ -47,22 +42,17 @@ class AdminMainScreen extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                 ),
-              )
-          )
+              ))
         ],
       ),
     );
 
-    if(result == "logout")
-    {
-      RememberUserPrefs.removeUserInfo().then((value)
-      {
+    if (result == "logout") {
+      RememberUserPrefs.removeUserInfo().then((value) {
         Get.off(LoginScreen());
       });
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,67 +64,62 @@ class AdminMainScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
             children: [
               Center(
-                    child: Material(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(8),
-                      child: InkWell(
-                        onTap: ()
-                        {
-                          Get.to(AdminUploadCardScreen());
-                        },
-                        borderRadius: BorderRadius.circular(32),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 150,
-                            vertical: 12,
-                          ),
-                          child:  Text(
-                            "Upload Card",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
+                child: Material(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(8),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(AdminUploadCardScreen());
+                    },
+                    borderRadius: BorderRadius.circular(32),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 120,
+                        vertical: 12,
+                      ),
+                      child: Text(
+                        "Upload Card",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
                         ),
                       ),
                     ),
                   ),
-
-              const SizedBox(height: 20,),
-
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Center(
-                    child: Material(
-                      color: Colors.redAccent,
-                      borderRadius: BorderRadius.circular(8),
-                      child: InkWell(
-                        onTap: ()
-                        {
-                          LogoutUser();
-                        },
-                        borderRadius: BorderRadius.circular(32),
-                        child: const Padding(
-                          padding:  EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 12,
-                          ),
-                          child:  Text(
-                            "Logout",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
+                child: Material(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.circular(8),
+                  child: InkWell(
+                    onTap: () {
+                      LogoutUser();
+                    },
+                    borderRadius: BorderRadius.circular(32),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 12,
+                      ),
+                      child: Text(
+                        "Logout",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
                         ),
                       ),
-
                     ),
-                  )
-             ],
+                  ),
+                ),
+              )
+            ],
           );
         },
       ),
     );
   }
-
 }
-
