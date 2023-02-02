@@ -438,7 +438,7 @@ class HomeFragmentsScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
 
                             ],
                           ),

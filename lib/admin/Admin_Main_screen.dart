@@ -67,11 +67,18 @@ class AdminMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          "Admin Page",
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (context, cons) {
           return ListView(
-            padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
             children: [
               Center(
                     child: Material(
