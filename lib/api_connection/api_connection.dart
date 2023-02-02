@@ -1,6 +1,9 @@
 class API {
+
+  //flutter run -d chrome --web-browser-flag "--disable-web-security"
+
   //ipconfig to change ip
-  static const hostConnect = 'http://172.20.10.5/api_fyp';
+  static const hostConnect = 'http://192.168.50.156/api_fyp';
 
   static const hostConnectUser = '$hostConnect/user';
   static const hostConnectCard = '$hostConnect/card';
@@ -18,4 +21,8 @@ class API {
   static const getTrendingCard = '$hostConnectCard/trending.php';
 
   static const getAllCard = '$hostConnectCard/allcard.php';
+
+  //search
+  static const searchCard = '$hostConnectCard/search.php';
+
 }

@@ -40,6 +40,8 @@ class Cards
     Card_Pack: json["Card_Pack"],
     Card_Description: json["Card_Description"],
     Card_Languages: json["Card_Languages"],
+    Card_Game: json["Card_Game"],
+    Card_Rare: json["Card_Rare"],
     Card_ImageURL: json["Card_ImageURL"],
     Card_Level: json["Card_Level"],
     Card_Special: json["Card_Special"],

@@ -147,10 +147,13 @@ class HomeFragmentsScreen extends StatelessWidget {
       child: TextField(
         style: TextStyle(color: Colors.black),
         controller: searchController,
+        onTap: (){
+          Get.to(SearchCard());
+        },
         decoration: InputDecoration(
           prefixIcon: IconButton(
             onPressed: (){
-              Get.to(SearchCard(searchKeyWords: searchController.text));
+              Get.to(SearchCard());
             },
             icon: const Icon(
               Icons.search,
@@ -445,12 +448,12 @@ class HomeFragmentsScreen extends StatelessWidget {
                       ),
                       ClipRRect(
                         borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
                         ),
                         child: FadeInImage(
-                          height: 200,
-                          width: 130,
+                          height: 150,
+                          width: 100,
                           fit: BoxFit.cover,
                           placeholder: const AssetImage("images/ImageError.png"),
                           image: NetworkImage(
