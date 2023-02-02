@@ -16,6 +16,7 @@ class DashboardOfFragments extends StatelessWidget {
   [
     HomeFragmentsScreen(),
     FavoritesFragmentsScreen(),
+
     OrderFragmentsScreen(),
     ProfileFragmentsScreen(),
   ];

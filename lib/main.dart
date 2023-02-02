@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:fyp/admin/Admin_Main_screen.dart';
 import 'package:fyp/user/fragments/dashboard_of_fragments.dart';
 import 'package:fyp/user/login_screen.dart';
 import 'package:fyp/user/userPreferences/user_preferences.dart';
@@ -29,10 +30,13 @@ class MyApp extends StatelessWidget {
           {
             return LoginScreen();
           }
-          else
+          else if (dataSnapShot.data!.User_States == "User")
           {
             return DashboardOfFragments();
+          }else{
+            return AdminMainScreen();
           }
+
         },
       ),
     );

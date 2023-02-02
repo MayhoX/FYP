@@ -2,7 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp/api_connection/api_connection.dart';
+import 'package:fyp/user/Card/Card_details_screen.dart';
+import 'package:fyp/user/Card/search_Card.dart';
 import 'package:fyp/user/model/cards.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -141,13 +145,12 @@ class HomeFragmentsScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18),
       child: TextField(
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.black),
         controller: searchController,
         decoration: InputDecoration(
           prefixIcon: IconButton(
             onPressed: (){
-
-
+              Get.to(SearchCard(searchKeyWords: searchController.text));
             },
             icon: const Icon(
               Icons.search,
@@ -161,10 +164,10 @@ class HomeFragmentsScreen extends StatelessWidget {
           ),
           suffixIcon: IconButton(
             onPressed: (){
-
+              searchController.text ="";
             },
             icon: const Icon(
-              Icons.shopping_cart,
+              Icons.close_outlined,
               color:  Colors.black,
             ),
           ),
@@ -227,7 +230,7 @@ class HomeFragmentsScreen extends StatelessWidget {
                   Cards eachCardData = dataSnapShot.data![index];
                   return GestureDetector(
                   onTap: (){
-
+                    Get.to(CardDetailsScreen(cardInfo: eachCardData));
                   },
                   child: Container(
                   width: 200,
@@ -377,7 +380,7 @@ class HomeFragmentsScreen extends StatelessWidget {
               Cards eachCardRecord = dataSnapShot.data![index];
               return GestureDetector(
                 onTap: (){
-
+                  Get.to(CardDetailsScreen(cardInfo: eachCardRecord));
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(

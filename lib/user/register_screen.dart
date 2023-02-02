@@ -61,6 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.text.trim(),
       emailController.text.trim(),
       passwordController.text.trim(),
+      'User',
     );
 
     try
