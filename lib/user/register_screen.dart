@@ -230,9 +230,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     () => TextFormField(
                                       controller: passwordController,
                                       obscureText: isObsecure.value,
-                                      validator: (val) => val == ""
-                                          ? "Please input password"
-                                          : null,
+                                      validator: (val) {
+                                        if (val =="")
+                                        {
+                                          return "Please input password";
+                                        }
+                                        if (val!.length < 8)
+                                        {
+                                          return "Please input password at least 8 characters";
+                                        }
+                                        return null;
+                                      },
                                       decoration: InputDecoration(
                                         prefixIcon: const Icon(
                                           Icons.vpn_key_sharp,

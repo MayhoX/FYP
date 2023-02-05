@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 
 
-class OrderFragmentsScreen extends StatelessWidget {
+class messageFragmentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Text(
-            'Order  Screen'
+            'message  Screen'
         ),
       ),
     );

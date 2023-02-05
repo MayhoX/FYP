@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/user/fragments/favorites_fragment_screen.dart';
 import 'package:fyp/user/fragments/home_fragments_screen.dart';
-import 'package:fyp/user/fragments/order_fragments_screen.dart';
+import 'package:fyp/user/fragments/message_fragments_screen.dart';
 import 'package:fyp/user/fragments/profile_fragment_screen.dart';
 import 'package:fyp/user/userPreferences/current_user.dart';
 import 'package:get/get.dart';
@@ -17,7 +17,7 @@ class DashboardOfFragments extends StatelessWidget {
     HomeFragmentsScreen(),
     FavoritesFragmentsScreen(),
 
-    OrderFragmentsScreen(),
+    messageFragmentsScreen(),
     ProfileFragmentsScreen(),
   ];
 
@@ -34,9 +34,9 @@ class DashboardOfFragments extends StatelessWidget {
       'label': 'Favorites',
     },
     {
-      'active_icon': Icons.shopping_basket,
-      'non_active_icon': Icons.shopping_basket_outlined,
-      'label': 'Orders',
+      'active_icon': Icons.message,
+      'non_active_icon': Icons.message_outlined,
+      'label': 'Messages',
     },
     {
       'active_icon': Icons.person,

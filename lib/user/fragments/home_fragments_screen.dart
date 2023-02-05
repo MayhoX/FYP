@@ -6,7 +6,6 @@ import 'package:fyp/user/Card/Card_details_screen.dart';
 import 'package:fyp/user/Card/search_Card.dart';
 import 'package:fyp/user/model/cards.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -89,6 +88,8 @@ class HomeFragmentsScreen extends StatelessWidget {
     return allCardList;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -137,6 +138,9 @@ class HomeFragmentsScreen extends StatelessWidget {
         ],
       ),
     );
+
+
+
   }
 
 
@@ -489,4 +493,3 @@ class HomeFragmentsScreen extends StatelessWidget {
 
 
 }
-

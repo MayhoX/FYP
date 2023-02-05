@@ -97,10 +97,11 @@ class _SearchCardState extends State<SearchCard> {
   showSearchBarWidget(context)
   {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: TextField(
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
         controller: searchController,
+        autofocus: true,
         onChanged: (value){
           setState((){});
           SearchCardWidget(context);

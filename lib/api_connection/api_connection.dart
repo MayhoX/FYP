@@ -18,11 +18,21 @@ class API {
   //upload card
   static const uploadCard = '$hostConnectCard/upload.php';
 
+  //search Trending card in home page
   static const getTrendingCard = '$hostConnectCard/trending.php';
 
+  //search all card in home page
   static const getAllCard = '$hostConnectCard/allcard.php';
 
   //search
   static const searchCard = '$hostConnectCard/search.php';
+
+  //Sell Card
+  static const sellcard = '$hostConnectCard/sellcard.php';
+
+  //Selling Card List
+  static const sellCardList = '$hostConnectCard/sellingcardList.php';
+
+
 
 }
