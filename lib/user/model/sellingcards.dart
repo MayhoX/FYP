@@ -3,7 +3,7 @@ class SellingCards
   int? SellCard_ID ;
   int? Card_ID ;
   int? SellCard_Seller ;
-  int? SellCard_Price;
+  double? SellCard_Price;
   int? SellCard_Qty;
   String? SellCard_Description;
   String? SellCard_Date;
@@ -25,7 +25,7 @@ class SellingCards
     SellCard_ID: int.parse(json["SellCard_ID"]),
     Card_ID: int.parse(json["Card_ID"]),
     SellCard_Seller: int.parse(json["SellCard_Seller"]),
-    SellCard_Price: int.parse(json["SellCard_Price"]),
+    SellCard_Price: double.parse(json["SellCard_Price"]),
     SellCard_Qty: int.parse(json["SellCard_Qty"]),
     SellCard_Description: json["SellCard_Description"],
     SellCard_Date: json["SellCard_Date"],
