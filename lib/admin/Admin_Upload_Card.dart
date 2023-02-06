@@ -164,6 +164,7 @@ class _AdminUploadCardScreenState extends State<AdminUploadCardScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
+
           onPressed: () {
             setState(() {
               pickedImageXFile = null;

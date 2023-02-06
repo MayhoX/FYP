@@ -13,6 +13,10 @@ class BuyCardController extends GetxController
     _qtyCard.value = qtyOfCard;
   }
 
+  resetQty(){
+    _qtyCard.value = 1;
+  }
+
 
 }
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +9,7 @@ import 'package:fyp/user/model/cards.dart';
 import 'package:fyp/user/model/sellingcards.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'Sell_Card_screen.dart';
 import '../controllers/buy_card_controller.dart';
 
@@ -65,7 +67,6 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
 
     return sellingCardList;
   }
-
 
 
 
@@ -146,6 +147,19 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
 
             cardInfoWidget(),
 
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 10),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Row(
+                  children:const [
+                    Icon(Icons.add_task),
+                    SizedBox(width: 5,),
+                    Text("User Upload Picture",),
+                  ],
+                ) 
+              ),
+            ),
 
             cardListWidget(context),
 
@@ -406,67 +420,98 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                            children: [
                                Padding(
                                  padding: EdgeInsets.only(left: 15),
-                                 child: Column(
-                                   children: [
-
-
-                                     Row(
+                                 child: Center(
+                                   child: Column(
                                        children: [
-                                         const Text(
-                                           "Price ",
-                                           maxLines: 2,
-                                           overflow: TextOverflow.ellipsis,
-                                           style: TextStyle(
-                                             fontSize: 18,
-                                             color: Colors.black,
-                                             fontWeight: FontWeight.bold,
-                                           ),
+
+                                         //Seller Name
+                                         Row(
+                                           children: [
+                                             const Icon(Icons.person,color: Colors.black,),
+                                             const Text(
+                                               "Seller: ",
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                               style: TextStyle(
+                                                 fontSize: 18,
+                                                 color: Colors.black,
+                                                 fontWeight: FontWeight.bold,
+                                               ),
+                                             ),
+                                             Text(
+                                               eachCardRecord.User_Name!,
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                               style: const TextStyle(
+                                                 fontSize: 18,
+                                                 color: Colors.black,
+                                                 fontWeight: FontWeight.bold,
+                                               ),
+                                             ),
+                                           ],
                                          ),
-                                         const Icon(Icons.attach_money,color: Colors.black,),
-                                         Text(
-                                           eachCardRecord.SellCard_Price!.toString(),
-                                           maxLines: 2,
-                                           overflow: TextOverflow.ellipsis,
-                                           style: const TextStyle(
-                                             fontSize: 18,
-                                             color: Colors.black,
-                                             fontWeight: FontWeight.bold,
-                                           ),
+                                         const SizedBox(height: 8,),
+
+                                         //Price
+                                         Row(
+                                           children: [
+                                             const Text(
+                                               "Price ",
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                               style: TextStyle(
+                                                 fontSize: 18,
+                                                 color: Colors.black,
+                                                 fontWeight: FontWeight.bold,
+                                               ),
+                                             ),
+                                             const Icon(Icons.attach_money,color: Colors.black,),
+                                             Text(
+                                               eachCardRecord.SellCard_Price!.toString(),
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                               style: const TextStyle(
+                                                 fontSize: 18,
+                                                 color: Colors.black,
+                                                 fontWeight: FontWeight.bold,
+                                               ),
+                                             ),
+                                           ],
                                          ),
+
+                                         const SizedBox(height: 8,),
+
+                                         //Qty
+                                         Row(
+                                           children: [
+                                             const Text(
+                                               "Quantity: ",
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                               style: TextStyle(
+                                                 fontSize: 18,
+                                                 color: Colors.black,
+                                                 fontWeight: FontWeight.bold,
+                                               ),
+                                             ),
+                                             Text(
+                                               eachCardRecord.SellCard_Qty!.toString(),
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                               style: const TextStyle(
+                                                 fontSize: 18,
+                                                 color: Colors.black,
+                                                 fontWeight: FontWeight.bold,
+                                               ),
+                                             ),
+                                           ],
+                                         ),
+
+                                         const SizedBox(height: 8,),
                                        ],
-                                     ),
+                                       //Seller Name
 
-                                     const SizedBox(height: 8,),
-
-                                     Row(
-                                       children: [
-                                         const Text(
-                                           "Quantity: ",
-                                           maxLines: 2,
-                                           overflow: TextOverflow.ellipsis,
-                                           style: TextStyle(
-                                             fontSize: 18,
-                                             color: Colors.black,
-                                             fontWeight: FontWeight.bold,
-                                           ),
-                                         ),
-                                         Text(
-                                           eachCardRecord.SellCard_Qty!.toString(),
-                                           maxLines: 2,
-                                           overflow: TextOverflow.ellipsis,
-                                           style: const TextStyle(
-                                             fontSize: 18,
-                                             color: Colors.black,
-                                             fontWeight: FontWeight.bold,
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-
-                                     const SizedBox(height: 8,),
-
-
-                                   ],
+                                   ),
                                  ),
                                ),
 
@@ -519,8 +564,11 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
 
                          ),
                        );
-                      }
-                  );
+                      },
+                  ).whenComplete(()
+                  {
+                    buyCardController.resetQty();
+                  });
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(
@@ -548,6 +596,37 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                           padding: EdgeInsets.only(left: 15),
                           child: Column(
                             children: [
+
+                              //Seller Name
+                              Row(
+                                children: [
+                                  const Icon(Icons.person,color: Colors.black,),
+                                  const Text(
+                                    "Seller: ",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    eachCardRecord.User_Name!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              const SizedBox(height: 6,),
+
+                              //Price
                               Row(
                                   children: [
                                     const Text(
@@ -576,6 +655,7 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
 
                               const SizedBox(height: 6,),
 
+                              //Qty
                               Row(
                                   children: [
                                     const Text(
@@ -609,8 +689,10 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                         ),
                       ),
 
-
-
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: eachCardRecord!.SellCard_ImageURL != null ? const Icon(Icons.add_task) : const Icon(Icons.sms_failed_outlined, color: Colors.white,),
+                      ),
 
                       ClipRRect(
                         borderRadius: const BorderRadius.only(
@@ -622,8 +704,10 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                           width: 100,
                           fit: BoxFit.cover,
                           placeholder: const AssetImage("images/ImageError.png"),
+
                           image: NetworkImage(
-                            widget.cardInfo!.Card_ImageURL!,
+                            // widget.cardInfo!.Card_ImageURL!,
+                            eachCardRecord!.SellCard_ImageURL != null ? eachCardRecord!.SellCard_ImageURL! : widget.cardInfo!.Card_ImageURL!,
                           ),
                           imageErrorBuilder: (context, error, stackTraceError)
                           {
@@ -634,6 +718,7 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                             );
                           },
                         ),
+
                       ),
 
 
@@ -654,7 +739,6 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
       },
     );
   }
-
 
 
 

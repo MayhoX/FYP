@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp/api_connection/api_connection.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../controllers/sell_card_controller.dart';
 import '../model/cards.dart';
@@ -31,6 +33,105 @@ class _sellCardScreenState extends State<sellCardScreen> {
   var formKey = GlobalKey<FormState>();
   var priceController = TextEditingController();
   var descriptionController = TextEditingController();
+  var imageLink = "";
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? pickedImageXFile;
+
+  CaptureImageWithCamera() async {
+    pickedImageXFile = await _picker.pickImage(source: ImageSource.camera);
+
+    Get.back();
+
+    setState(() => pickedImageXFile);
+  }
+
+  PickImageWithGallery() async {
+    pickedImageXFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    Get.back();
+
+    setState(() => pickedImageXFile);
+  }
+
+  showDialogBox() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text(
+              "Card Image",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  CaptureImageWithCamera();
+                },
+                child: const Text(
+                  "Capture with Phone Camera",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  PickImageWithGallery();
+                },
+                child: const Text(
+                  "Select with Phone Library",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  uploadItemImage() async {
+    var requestAPI = http.MultipartRequest(
+        "POST", Uri.parse("https://api.imgur.com/3/image"));
+
+    String imageName = DateTime.now().millisecondsSinceEpoch.toString();
+    requestAPI.fields['title'] = imageName;
+    requestAPI.headers['Authorization'] = 'Client-ID ' + 'f1fac75daa8dcce';
+
+    var imageFile = await http.MultipartFile.fromPath(
+      'image',
+      pickedImageXFile!.path,
+      filename: imageName,
+    );
+
+    requestAPI.files.add(imageFile);
+    var responseAPI = await requestAPI.send();
+
+    var responseDataAPI = await responseAPI.stream.toBytes();
+
+    var resultAPI = String.fromCharCodes(responseDataAPI);
+
+    Map<String, dynamic> jsonRes = json.decode(resultAPI);
+    imageLink = (jsonRes['data']['link']).toString();
+    String deleteHash = (jsonRes['data']['deletehash']).toString();
+
+    sellCard();
+  }
 
   sellCard() async
   {
@@ -45,6 +146,7 @@ class _sellCardScreenState extends State<sellCardScreen> {
           "Price": priceController.text.trim(),
           "Qty": sellCardController.qty.toString(),
           "Description": descriptionController.text.trim(),
+          "ImageURL": imageLink.trim().toString(),
           "Date": DateTime.now().toString(),
         },
       );
@@ -111,25 +213,27 @@ class _sellCardScreenState extends State<sellCardScreen> {
 
         child: Column(
           children: [
-            FadeInImage(
-              height: MediaQuery.of(context).size.height* 0.64,
-              width: MediaQuery.of(context).size.width,
+            // FadeInImage(
+            //   height: MediaQuery.of(context).size.height* 0.64,
+            //   width: MediaQuery.of(context).size.width,
+            //
+            //   fit: BoxFit.cover,
+            //   placeholder: const AssetImage("images/ImageError.png"),
+            //   image: NetworkImage(
+            //     widget.cardInfo!.Card_ImageURL!,
+            //   ),
+            //   imageErrorBuilder: (context, error, stackTraceError)
+            //   {
+            //     return const Center(
+            //       child:  Icon(
+            //         Icons.broken_image_outlined,
+            //       ),
+            //     );
+            //   },
+            // ),
 
-              fit: BoxFit.cover,
-              placeholder: const AssetImage("images/ImageError.png"),
-              image: NetworkImage(
-                widget.cardInfo!.Card_ImageURL!,
-              ),
-              imageErrorBuilder: (context, error, stackTraceError)
-              {
-                return const Center(
-                  child:  Icon(
-                    Icons.broken_image_outlined,
-                  ),
-                );
-              },
-            ),
 
+            pickedImageXFile == null ? defaultScreen() : uploadCardScreen(),
 
             SellCardWidget(),
 
@@ -352,7 +456,10 @@ class _sellCardScreenState extends State<sellCardScreen> {
                     child: InkWell(
                       onTap: ()
                       {
-                        sellCard();
+                        if (formKey.currentState!.validate()) {
+                          Fluttertoast.showToast(msg: "Uploading...");
+                          uploadItemImage();
+                        }
                       },
                       borderRadius: BorderRadius.circular(10),
                       child: Container(
@@ -377,6 +484,63 @@ class _sellCardScreenState extends State<sellCardScreen> {
 
 
           ],
+        ),
+      ),
+    );
+  }
+
+
+  Widget defaultScreen(){
+    return Padding(
+      padding: const EdgeInsets.only(top: 20,bottom: 50),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.add_photo_alternate,
+              color: Colors.black54,
+              size: 200,
+            ),
+            Material(
+              color: Colors.black38,
+              borderRadius: BorderRadius.circular(30),
+              child: InkWell(
+                onTap: () {
+                  showDialogBox();
+                },
+                borderRadius: BorderRadius.circular(30),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 28,
+                  ),
+                  child: Text(
+                    "Upload Card Image (optional)",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget uploadCardScreen(){
+    return Container(
+      height: MediaQuery.of(context).size.height* 0.64,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: FileImage(
+            File(pickedImageXFile!.path),
+          ),
+          fit: BoxFit.cover,
         ),
       ),
     );
