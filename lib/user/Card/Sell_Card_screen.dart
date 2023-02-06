@@ -457,8 +457,14 @@ class _sellCardScreenState extends State<sellCardScreen> {
                       onTap: ()
                       {
                         if (formKey.currentState!.validate()) {
-                          Fluttertoast.showToast(msg: "Uploading...");
-                          uploadItemImage();
+                          if (pickedImageXFile != null) {
+                            Fluttertoast.showToast(msg: "Uploading...");
+                            uploadItemImage();
+                          }
+                          else
+                          {
+                            sellCard();
+                          }
                         }
                       },
                       borderRadius: BorderRadius.circular(10),
