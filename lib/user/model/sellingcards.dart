@@ -10,6 +10,7 @@ class SellingCards
   String? SellCard_Date;
   String? SellCard_state;
 
+  int? User_ID;
   String? User_Name;
 
 
@@ -24,6 +25,7 @@ class SellingCards
     this.SellCard_Date,
     this.SellCard_state,
 
+    this.User_ID,
     this.User_Name,
   });
 
@@ -38,6 +40,7 @@ class SellingCards
     SellCard_Date: json["SellCard_Date"],
     SellCard_state: json["SellCard_state"],
 
+    User_ID: int.parse(json["User_ID"]),
     User_Name: json["User_Name"],
   );
 

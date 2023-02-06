@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import '../model/cards.dart';
 import 'package:http/http.dart' as http;
 
+import 'Card_details_screen.dart';
+
 
 class SearchCard extends StatefulWidget {
 
@@ -180,7 +182,7 @@ class _SearchCardState extends State<SearchCard> {
               Cards eachCardRecord = dataSnapShot.data![index];
               return GestureDetector(
                 onTap: (){
-                  // Get.to(CardDetailsScreen(cardInfo: eachCardRecord));
+                  Get.to(CardDetailsScreen(cardInfo: eachCardRecord));
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(

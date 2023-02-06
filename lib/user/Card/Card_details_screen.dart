@@ -10,6 +10,7 @@ import 'package:fyp/user/model/sellingcards.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import '../userPreferences/current_user.dart';
 import 'Sell_Card_screen.dart';
 import '../controllers/buy_card_controller.dart';
 
@@ -26,8 +27,9 @@ class CardDetailsScreen extends StatefulWidget {
 
 class _CardDetailsScreenState extends State<CardDetailsScreen> {
 
+  final CurrentUser _currentUser = Get.put(CurrentUser());
   final buyCardController = Get.put(BuyCardController());
-
+  var formKey = GlobalKey<FormState>();
 
   Future<List<SellingCards>> getSellngCard() async
   {
@@ -67,8 +69,6 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
 
     return sellingCardList;
   }
-
-
 
 
   @override
@@ -174,6 +174,55 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
   }
 
 
+  BuyCard(eachCardRecord) async
+  {
+    try
+    {
+      SellingCards record = eachCardRecord;
+
+      var totalPrice = buyCardController.qty * record.SellCard_Price!;
+      var Res = await http.post(
+        Uri.parse(API.buycard),
+        body: {
+          "SellCardID": record.SellCard_ID!.toString(),
+          "CardID": record.Card_ID!.toString(),
+          "BuyerID": _currentUser.user.User_ID.toString(),
+          "SellerID": record.User_ID!.toString(),
+          "Qty": buyCardController.qty.toString(),
+          "TotalPrice": totalPrice.toString(),
+          "Date": DateTime.now().toString(),
+
+        },
+      );
+
+      if(Res.statusCode == 200)
+      {
+
+        var resBodyOfSellCard = jsonDecode(Res.body);
+
+        if (resBodyOfSellCard['success'] == true)
+        {
+          Fluttertoast.showToast(msg: "Buy Card Successfully");
+
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            // Get.back
+          });
+
+        }else{
+          Fluttertoast.showToast(msg: "Input Error.");
+        }
+      }
+      else
+      {
+        Fluttertoast.showToast(msg: "200");
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
 
   cardInfoWidget()
   {
@@ -508,6 +557,7 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                                          ),
 
                                          const SizedBox(height: 8,),
+
                                        ],
                                        //Seller Name
 
@@ -548,7 +598,10 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                                        IconButton(
                                          onPressed: ()
                                          {
-                                           buyCardController.setQtyCard(buyCardController.qty + 1);
+                                           if (buyCardController.qty < eachCardRecord.SellCard_Qty!){
+                                             buyCardController.setQtyCard(buyCardController.qty + 1);
+
+                                           }
                                          },
                                          icon: const Icon(
                                            Icons.add_circle_outline,
@@ -560,6 +613,34 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                                  ),
 
                              ),
+
+                             Material(
+                               color: Colors.blue,
+                               borderRadius: BorderRadius.circular(30),
+                               child: InkWell(
+                                 onTap: (){
+                                   if (formKey.currentState!.validate())
+                                   {
+                                     BuyCard(eachCardRecord);
+                                   }
+                                 },
+                                 borderRadius: BorderRadius.circular(30),
+                                 child: const Padding(
+                                   padding: EdgeInsets.symmetric(
+                                     vertical: 10,
+                                     horizontal: 28,
+                                   ),
+                                   child: Text(
+                                     'Order',
+                                     style: TextStyle(
+                                       color: Colors.white,
+                                       fontSize: 16,
+                                     ),
+                                   ),
+                                 ),
+                               ),
+                             ),
+
                            ],
 
                          ),

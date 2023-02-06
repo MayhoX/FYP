@@ -33,6 +33,10 @@ class API {
   //Selling Card List
   static const sellCardList = '$hostConnectCard/sellingcardList.php';
 
+  //Buy Card
+  static const buycard = '$hostConnectCard/buycard.php';
+
+
 
 
 }
