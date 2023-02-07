@@ -1,5 +1,4 @@
 class API {
-
   //flutter run -d chrome --web-browser-flag "--disable-web-security"
 
   //ipconfig to change ip
@@ -35,8 +34,4 @@ class API {
 
   //Buy Card
   static const buycard = '$hostConnectCard/buycard.php';
-
-
-
-
 }

@@ -371,6 +371,10 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
+            const SizedBox(
+              height: 18,
+            ),
           ],
         ),
       ),
@@ -415,110 +419,147 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 15),
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    //Seller Name
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.person,
-                                          color: Colors.black,
-                                        ),
-                                        const Text(
-                                          "Seller: ",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          eachCardRecord.User_Name!,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            //Seller Name
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.person,
+                                                  color: Colors.black,
+                                                ),
+                                                const Text(
+                                                  "Seller: ",
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  eachCardRecord.User_Name!,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
 
-                                    //Price
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          "Price ",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.attach_money,
-                                          color: Colors.black,
-                                        ),
-                                        Text(
-                                          eachCardRecord.SellCard_Price!
-                                              .toString(),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
 
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
+                                            //Price
+                                            Row(
+                                              children: [
+                                                const Text(
+                                                  "Price ",
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const Icon(
+                                                  Icons.attach_money,
+                                                  color: Colors.black,
+                                                ),
+                                                Text(
+                                                  eachCardRecord.SellCard_Price!
+                                                      .toString(),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
 
-                                    //Qty
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          "Quantity: ",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          eachCardRecord.SellCard_Qty!
-                                              .toString(),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
 
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                  ],
-                                  //Seller Name
-                                ),
+                                            //Qty
+                                            Row(
+                                              children: [
+                                                const Text(
+                                                  "Quantity: ",
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  eachCardRecord.SellCard_Qty!
+                                                      .toString(),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      FadeInImage(
+                                        height: 150,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                        placeholder: const AssetImage(
+                                            "images/ImageError.png"),
+                                        image: NetworkImage(
+                                          // widget.cardInfo!.Card_ImageURL!,
+                                          eachCardRecord!.SellCard_ImageURL !=
+                                                  null
+                                              ? eachCardRecord!
+                                                  .SellCard_ImageURL!
+                                              : widget.cardInfo!.Card_ImageURL!,
+                                        ),
+                                        imageErrorBuilder:
+                                            (context, error, stackTraceError) {
+                                          return const Center(
+                                            child: Icon(
+                                              Icons.broken_image_outlined,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                             Obx(
